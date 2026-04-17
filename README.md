@@ -1,5 +1,9 @@
 # Cashflow Solution Challenge
 
+## Proposta Arquitetural Complementar
+
+[Visão arquitetural completa da solução](https://github.com/jloretos/desafio-arquiteto-solucoes)
+
 ## **Visão Geral**
 
 Solução técnica desenvolvida para o desafio proposto, implementando uma **API de controle de fluxo de caixa simples, escalável e de fácil manutenção**.
