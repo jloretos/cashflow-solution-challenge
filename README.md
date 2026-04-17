@@ -1,25 +1,25 @@
 # Cashflow Solution Challenge
 
-## **Overview**
+## **Visão Geral**
 
-Technical solution developed for the proposed challenge, implementing a **simple, scalable and maintainable Cashflow Control API**.
+Solução técnica desenvolvida para o desafio proposto, implementando uma **API de controle de fluxo de caixa simples, escalável e de fácil manutenção**.
 
-The application allows registering incomes and expenses, listing transactions, calculating balances and exposing endpoints through an interactive Swagger interface.
-
----
-
-## **Main Features**
-
-- Register **income** and **expense** transactions
-- List all financial entries
-- Generate summarized balance
-- Persist data in PostgreSQL
-- Interactive API documentation via Swagger
-- Organized layered architecture
+A aplicação permite registrar receitas e despesas, listar lançamentos, calcular saldo consolidado e disponibilizar endpoints através de interface Swagger.
 
 ---
 
-## **Tech Stack**
+## **Principais Funcionalidades**
+
+- Registrar transações de **receita** e **despesa**
+- Listar todos os lançamentos financeiros
+- Gerar resumo consolidado do saldo
+- Persistir dados em PostgreSQL
+- Documentação interativa via Swagger
+- Arquitetura organizada em camadas
+
+---
+
+## **Stack Tecnológica**
 
 - **Python 3**
 - **FastAPI**
@@ -30,120 +30,132 @@ The application allows registering incomes and expenses, listing transactions, c
 
 ---
 
-## **Architecture Approach**
+## **Abordagem Arquitetural**
 
-The solution was structured using **separation of concerns**, improving maintainability, readability and scalability:
+A solução foi estruturada utilizando **separação de responsabilidades**, melhorando manutenção, legibilidade e escalabilidade:
 
-- **Routers** → API endpoints  
-- **Schemas** → request / response contracts  
-- **Services** → business logic  
-- **Models** → database entities  
-- **Core** → configuration layer  
+- **Routers** → Endpoints da API
+- **Schemas** → Contratos de entrada e saída
+- **Services** → Regras de negócio
+- **Models** → Entidades de banco de dados
+- **Core** → Configurações da aplicação
 
 ---
 
-## **Application Flow**
+## **Fluxo da Aplicação**
 
 ```text
-┌───────────────┐
-│ Client Request│
-└───────┬───────┘
-        ▼
-┌───────────────┐
-│ FastAPI Router│
-└───────┬───────┘
-        ▼
-┌───────────────┐
-│ Service Layer │
-└───────┬───────┘
-        ▼
-┌───────────────┐
-│ SQLAlchemy ORM│
-└───────┬───────┘
-        ▼
-┌────────────────────┐
-│ PostgreSQL Database│
-└───────┬────────────┘
-        ▼
-┌───────────────┐
-│ JSON Response │
-└───────────────┘
+┌──────────────────┐
+│ Requisição Cliente│
+└────────┬─────────┘
+         ▼
+┌──────────────────┐
+│ FastAPI Router   │
+└────────┬─────────┘
+         ▼
+┌──────────────────┐
+│ Camada Service   │
+└────────┬─────────┘
+         ▼
+┌──────────────────┐
+│ SQLAlchemy ORM   │
+└────────┬─────────┘
+         ▼
+┌──────────────────┐
+│ Banco PostgreSQL │
+└────────┬─────────┘
+         ▼
+┌──────────────────┐
+│ Resposta JSON    │
+└──────────────────┘
 ```
+
 ---
 
-## **Project Structure**
+## **Estrutura do Projeto**
 
+```text
 cashflow-solution-challenge/
 
-```text
 app/
-├── core/        # Settings and configuration
-├── models/      # Database entities
-├── routers/     # API endpoints
-├── schemas/     # Request / response models
-├── services/    # Business rules
-└── database.py  # Database connection
-```
+├── core/        # Configurações da aplicação
+├── models/      # Entidades do banco
+├── routers/     # Endpoints REST
+├── schemas/     # Modelos de entrada/saída
+├── services/    # Regras de negócio
+└── database.py  # Conexão com banco
 
-main.py  
-Dockerfile  
-docker-compose.yml  
-requirements.txt  
-.env.example  
-README.md  
+main.py
+Dockerfile
+docker-compose.yml
+requirements.txt
+.env.example
+README.md
+```
 
 ---
 
-## **Business Rules**
+## **Regras de Negócio**
 
-Each transaction contains:
+Cada lançamento contém:
 
 - **description**
 - **amount**
-- **type** (`income` or `expense`)
+- **type** (`income` ou `expense`)
 - **transaction_date**
 
-Balance formula:
+Fórmula do saldo:
 
-balance = total_income - total_expense
+```text
+saldo = total_receitas - total_despesas
+```
 
 ---
 
-## **How to Run**
+## **Como Executar**
 
-### **1. Clone repository**
+### **1. Clonar o repositório**
 
+```bash
 git clone https://github.com/jloretos/cashflow-solution-challenge.git
-
 cd cashflow-solution-challenge
+```
 
-### **2. Start PostgreSQL**
+### **2. Subir PostgreSQL**
 
+```bash
 docker compose up -d
+```
 
-### **3. Install dependencies**
+### **3. Instalar dependências**
 
+```bash
 pip install -r requirements.txt
+```
 
-### **4. Create .env file**
+### **4. Criar arquivo .env**
 
+```env
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/cashflow
-
 APP_NAME=Cashflow Solution Challenge
-
 APP_ENV=development
+```
 
-### **5. Run application**
+### **5. Executar aplicação**
 
+```bash
 python -m uvicorn main:app --reload
+```
 
-### **6. Access Swagger**
+### **6. Acessar Swagger**
 
+```text
 http://127.0.0.1:8000/docs
+```
 
 ---
 
-## **Available Endpoints**
+## **Endpoints Disponíveis**
 
 - **GET** `/health`
 - **POST** `/cashflow`
@@ -152,41 +164,43 @@ http://127.0.0.1:8000/docs
 
 ---
 
-## **Example Summary Response**
+## **Exemplo de Resumo**
 
+```json
 {
   "total_income": 250.50,
   "total_expense": 100.00,
   "balance": 150.50
 }
+```
 
 ---
 
-## **Design Decisions**
+## **Decisões Técnicas**
 
-- Lightweight and fast framework using FastAPI
-- PostgreSQL chosen for reliability and relational consistency
-- Layered architecture to support future growth
-- Docker Compose used for local reproducibility
-- Swagger chosen to simplify evaluator testing
-
----
-
-## **Future Improvements**
-
-- Authentication / Authorization
-- Automated unit tests
-- Integration tests
-- Pagination
-- Filters by date range
-- Update / Delete endpoints
-- CI/CD pipeline
-- Cloud deployment
-- Monitoring / Observability
+- Utilização do FastAPI pela performance e simplicidade
+- PostgreSQL pela robustez e consistência relacional
+- Arquitetura em camadas visando crescimento futuro
+- Docker Compose para reprodutibilidade local
+- Swagger para facilitar testes do avaliador
 
 ---
 
-## **Author**
+## **Melhorias Futuras**
+
+- Autenticação / Autorização
+- Testes automatizados
+- Testes de integração
+- Paginação
+- Filtros por período
+- Endpoints de atualização e exclusão
+- Pipeline CI/CD
+- Deploy em nuvem
+- Monitoramento / Observabilidade
+
+---
+
+## **Autor**
 
 **Jeferson Loreto**  
-Solutions Architect | Senior Systems Analyst
+Arquiteto de Soluções | Analista de Sistemas Sênior
