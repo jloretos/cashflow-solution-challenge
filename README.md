@@ -44,6 +44,7 @@ The solution was structured using **separation of concerns**, improving maintain
 
 ## **Application Flow**
 
+```text
 ┌───────────────┐
 │ Client Request│
 └───────┬───────┘
@@ -67,13 +68,14 @@ The solution was structured using **separation of concerns**, improving maintain
 ┌───────────────┐
 │ JSON Response │
 └───────────────┘
-
+```
 ---
 
 ## **Project Structure**
 
 cashflow-solution-challenge/
 
+```text
 app/
 ├── core/        # Settings and configuration
 ├── models/      # Database entities
@@ -81,6 +83,7 @@ app/
 ├── schemas/     # Request / response models
 ├── services/    # Business rules
 └── database.py  # Database connection
+```
 
 main.py  
 Dockerfile  
